@@ -118,7 +118,12 @@ $(document).ready(function () {
 
     $(".saveMe").on("click", function () {
         event.preventDefault();
+        var newStory = [];
+
         //TODO figure this out
+        //http://stackoverflow.com/questions/10261021/sending-an-array-of-objects-as-ajax-post-data
+        //then put each field into the newStory array?  [{text: value of text field one, imageUrl: value of url field one},
+        //  {text: value of text field two, imageUrl: value of url field two}, etc.]
         var formData = $(".addAfter").serialize();
         console.log(formData);
         $.ajax({
