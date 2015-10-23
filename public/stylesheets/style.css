@@ -1,0 +1,246 @@
+body {
+    font-family: 'Muli', sans-serif;
+}
+
+.clearfix:after {
+    content: " "; /* Older browser do not support empty content */
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+}
+
+header {
+    height: 300px;
+    width: 100%;
+    background-color: #3f7cac;
+    margin-top: 0;
+    border:  4px solid black;
+}
+
+header>h1 {
+    padding: 120px 0 0 30px;
+    font-size: 50px;
+    text-transform: uppercase;
+    float: left;
+}
+
+h1 {
+    padding: 80px 0 0 30px;
+    font-size: 40px;
+}
+.worm {
+    float: left;
+    padding: 120px 0 0 30px;
+}
+
+a {
+    color: black;
+    padding: 30px 0 0 50px;
+}
+
+.saveMe {
+    display: none;
+}
+input[type=submit],
+.register,
+.login,
+.createStory,
+.saveStory,
+.addToo,
+.add {
+    background-color: #b8d8d8;
+    float: right;
+    border: 3px solid black;
+    border-radius: 5px;
+    margin: 0 20px 0 0;
+    padding: 10px;
+}
+
+.createStory,
+.login,
+.register {
+    margin-top: 220px;
+}
+
+.loginForm,
+.titleForm {
+    display: none;
+}
+
+div {
+    margin-bottom: 50px;
+}
+
+.showMe,
+.pageForm {
+    display: block;
+    border: 4px solid black;
+    background-color: #3f7cac;
+    margin: 0 auto;
+    width: 40%;
+    margin-top: 30px;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+.registerForm {
+    border: 4px solid black;
+    background-color: #3f7cac;
+    margin: 0 auto;
+    width: 40%;
+    margin-top: 30px;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+
+.submit {
+    text-align: right;
+}
+
+input [type=text] {
+}
+
+.formInput {
+    margin: 10px;
+    padding-bottom: 10px;
+}
+
+.title {
+    float: left;
+    text-align: right;
+    padding-right: 10px;
+}
+
+/*Slider styling*/
+
+.slider-nav {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.slider {
+    position: relative;
+    width: 100%;
+    height: 470px;
+    border-bottom: 1px solid #ddd;
+}
+
+.slide {
+    background: transparent url('http://s3.amazonaws.com/codecademy-content/courses/ltp2/img/flipboard/feature-gradient-transparent.png') center center no-repeat;
+    background-size: cover;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.active-slide {
+    display: block;
+}
+
+.slide-copy h1 {
+    color: white;
+    font-weight: bolder;
+    font-size: 40px;
+    margin:250px auto auto auto;
+}
+
+/*.slide-copy h2 {*/
+    /*color: #b7b7b7;*/
+
+    /*font-family: 'Oswald', sans-serif;*/
+    /*font-weight: 400;*/
+
+    /*font-size: 40px;*/
+    /*margin: 5px;*/
+/*}*/
+
+.slide-copy p {
+    color: white;
+    font-weight: bolder;
+    font-size: 40px;
+    margin:250px auto auto auto;
+}
+
+.slide-img {
+    text-align: right;
+}
+
+/* Slide feature */
+
+.slide-feature1 {
+    text-align: center;
+    background-image: url('https://c2.staticflickr.com/6/5749/22422269351_064410b8d5_m.jpg');
+    height: 470px;
+}.slide-feature2 {
+    text-align: center;
+    background-image: url('https://c2.staticflickr.com/6/5784/21790261203_f831c46a8c_m.jpg');
+    height: 470px;
+}.slide-feature3 {
+    text-align: center;
+    background-image: url('https://c2.staticflickr.com/6/5749/22422269351_064410b8d5_m.jpg');
+    height: 470px;
+}.slide-feature4 {
+    text-align: center;
+    background-image: url('https://c1.staticflickr.com/1/598/22224553949_ee2fb48973_m.jpg');
+    height: 470px;
+}.slide-feature5 {
+    text-align: center;
+    background-image: url('https://c2.staticflickr.com/6/5749/22422269351_064410b8d5_m.jpg');
+    height: 470px;
+}.slide-feature6 {
+    text-align: center;
+    background-image: url('https://c1.staticflickr.com/1/655/22398183462_134fffd9ba_m.jpg');
+    height: 470px;
+}
+
+.slide-feature img {
+    margin-top: 112px;
+    margin-bottom: 28px;
+}
+
+.arrow-prev {
+    margin-right: 45px;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 9px;
+}
+
+.arrow-next {
+    margin-left: 45px;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 9px;
+}
+
+.slider-dots {
+    list-style: none;
+    display: inline-block;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.slider-dots li {
+    color: #bbbcbc;
+    display: inline;
+    font-size: 30px;
+    margin-right: 5px;
+}
+
+.slider-dots li.active-dot {
+    color: #363636;
+}
+
+
+/*.modal-content {*/
+    /*background-color: #3f7cac;*/
+
+/*}*/
+
+/*.modalForm {*/
+    /*margin: 0 auto 0 auto;*/
+/*}*/
