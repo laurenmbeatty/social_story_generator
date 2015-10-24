@@ -8,14 +8,14 @@ $(document).ready(function () {
     //example carousel functionality//
     //////////////////////////////////
 
-    $('.arrow-next').click(function() {
+    $('.arrow-next').click(function () {
         var currentSlide = $('.active-slide');
         var nextSlide = currentSlide.next();
 
         var currentDot = $('.active-dot');
         var nextDot = currentDot.next();
 
-        if(nextSlide.length === 0) {
+        if (nextSlide.length === 0) {
             nextSlide = $('.slide').first();
             nextDot = $('.dot').first();
         }
@@ -28,14 +28,14 @@ $(document).ready(function () {
     });
 
 
-    $('.arrow-prev').click(function() {
+    $('.arrow-prev').click(function () {
         var currentSlide = $('.active-slide');
         var prevSlide = currentSlide.prev();
 
         var currentDot = $('.active-dot');
         var prevDot = currentDot.prev();
 
-        if(prevSlide.length === 0) {
+        if (prevSlide.length === 0) {
             prevSlide = $('.slide').last();
             prevDot = $('.dot').last();
         }
@@ -49,9 +49,13 @@ $(document).ready(function () {
 
 
 
+
+    //////////////////////////////////////////////////
+    //  login and register clicking functionality  //
+    /////////////////////////////////////////////////
+
     var counter = 0;
 
-    //login and register clicking functionality
     $(".login").on("click", function () {
         $(".loginForm").addClass("showMe");
         $(".slider").fadeOut(600);
@@ -61,21 +65,27 @@ $(document).ready(function () {
         $(".login").hide();
     });
 
-    //clicking on createStory button shows new form
+    /////////////////////////////////////////////////////
+    //  clicking on createStory button shows new form  //
+    ////////////////////////////////////////////////////
+    
     $(".createStory").on("click", function () {
         $(".titleForm").addClass("showMe");
         $(".saveMe").removeClass("saveMe");
         $("#storytitle").focus();
     });
 
-    //click on add another page adds the next form
+    //////////////////////////////////////////////////////
+    //  click on add another page adds the next form   //
+    /////////////////////////////////////////////////////
+
     $(".add").on("click", function () {
         event.preventDefault();
         counter += 1;
         var $newForm = $("<div class = 'pageForm'>" +
             "<div class='formInput'>" +
             "<label for='storyline' class='line'>Text for Page " + counter + "</label>" +
-            "<textarea rows = '4' cols='50'>" + "</textarea>" +
+            "<textarea name = 'text' rows = '4' cols='50'>" + "</textarea>" +
             "</div>" +
             "<div class='formInput'>" +
             "<label for='imageURL' class='title'>What is the URL of your photo? </label>" +
@@ -91,7 +101,10 @@ $(document).ready(function () {
 
     });
 
-    //Adds the next form for subsequent pages
+    ////////////////////////////////////////////////
+    //  Adds the next form for subsequent pages  ///
+    ////////////////////////////////////////////////
+
     $(document).on("click", ".addToo", function () {
         event.preventDefault();
         counter += 1;
@@ -120,6 +133,7 @@ $(document).ready(function () {
         event.preventDefault();
         var newStory = [];
 
+
         //TODO figure this out
         //http://stackoverflow.com/questions/10261021/sending-an-array-of-objects-as-ajax-post-data
         //then put each field into the newStory array?  [{text: value of text field one, imageUrl: value of url field one},
@@ -147,14 +161,15 @@ $(document).ready(function () {
         $.ajax({
             type: "GET",
             url: "/story"
-        }).done(function(response){
+        }).done(function (response) {
             console.log(response);
-            for(var i = 0; i<response.length; i++){
+            for (var i = 0; i < response.length; i++) {
                 var $carousel = " ";
                 $(".appendHere").append($carousel);
             }
         });
     }
+
     //delete function
     //$.ajax({
     //    type: "DELETE",

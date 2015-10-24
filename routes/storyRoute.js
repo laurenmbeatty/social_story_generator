@@ -10,17 +10,17 @@ var story = require('../models/storyModel.js');
 //   Gets story from database  //
 /////////////////////////////////
 
-router.get('/:story_number?', function(request, response, next){
+router.get('/:story_number?', function (request, response, next) {
 
     var id = request.params.id;
 
-    if(id){
-        story.findOne({id: id}, function(err, story){
+    if (id) {
+        story.findOne({id: id}, function (err, story) {
             response.json(story);
         });
     } else {
-        story.find({}, function(err, story){
-            if(err){
+        story.find({}, function (err, story) {
+            if (err) {
                 console.log("get request", err);
             }
             response.json(story);
@@ -32,12 +32,22 @@ router.get('/:story_number?', function(request, response, next){
 // add new story to database  //
 ////////////////////////////////
 
-router.post('/add', function(request, response, next){
+router.post('/add', function (request, response, next) {
     var newStory = new story();
+    //var newStory = request.body;
     console.log(newStory);
+    //for(var i=0; i < story.scenes.length; i++) {
+    //    console.log("The number of scenes is: ", story.scenes.length);
+    //
+    //}
     newStory.scenes.push(request.body);
-    newStory.save(function(err){
-        if(err){
+    //newStory.scenes.push({
+    //    text: newStory.scenes.text,
+    //    imageUrl: newStory.scenes.imageUrl
+    //
+    //});
+    newStory.save(function (err) {
+        if (err) {
             console.log("Post error", err);
             response.send("Cannot post data");
         }
@@ -50,15 +60,15 @@ router.post('/add', function(request, response, next){
 //  This will delete a story     //
 ///////////////////////////////////
 
-router.delete('/remove/:id', function(request, response){
+router.delete('/remove/:id', function (request, response) {
     var id = request.params.id;
-    story.findOne({id:id}, function(err, story){
-        if(err){
+    story.findOne({id: id}, function (err, story) {
+        if (err) {
             console.log("deleting error");
             next(err);
         } else {
-            story.remove(function(err) {
-                if(err) throw err;
+            story.remove(function (err) {
+                if (err) throw err;
             });
         }
     });
@@ -96,7 +106,6 @@ router.delete('/remove/:id', function(request, response){
 //        res.send("images/uploads/" + file.name);
 //    });
 //});
-
 
 
 module.exports = router;
