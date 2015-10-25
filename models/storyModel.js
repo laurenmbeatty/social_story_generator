@@ -10,6 +10,22 @@ var storySchema = new mongoose.Schema({
     ]
 });
 
+
+//Would this work????????? Create two separate schemas, one that defines a scene, and then include
+//the scene in the storySchema
+//var sceneSchema = new mongoose.Schema({
+//    text: String,
+//    imageUrl: String
+//});
+//
+//var storySchema = new mongoose.Schema ({
+//    _id: ObjectId,
+//    scenes: [sceneSchema]
+//});
+
+
+
+
 var story = mongoose.model('story', storySchema);
 
 module.exports = story;

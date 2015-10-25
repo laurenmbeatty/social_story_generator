@@ -95,8 +95,7 @@ $(document).ready(function () {
             "<button class='addToo'>" + "Add Another Page" + "</button>" +
             "</div>" +
             "</div>");
-
-        $($newForm).insertAfter(".titleForm");
+        $(".addAfter").append($newForm);
         $("textarea").focus();
 
     });
@@ -152,6 +151,7 @@ $(document).ready(function () {
         //.pageForm remove and .titleForm remove
         $(".slider").fadeIn(600);
         $(".slider-nav").fadeIn(600);
+        getData();
         $(".saveMe").fadeOut(600);
 
     });
@@ -160,11 +160,20 @@ $(document).ready(function () {
         console.log("getData fired...Huzzah!");
         $.ajax({
             type: "GET",
-            url: "/story"
+            url: "/users/story"
         }).done(function (response) {
             console.log(response);
             for (var i = 0; i < response.length; i++) {
-                var $carousel = " ";
+                var $carousel = "<div class='slide active-slide slide-feature1'>" +
+                "<div class='container'>" +
+                    "<div class='row'>" +
+                    "<div class='slide-copy col-xs-12>" +
+                    "<h1>" + response[i].scenes.text + "</h1>" +
+                "</div>" +
+                "</div>" +
+                "</div>" +
+                "</div>";
+                console.log("The carousel is: " + $carousel);
                 $(".appendHere").append($carousel);
             }
         });

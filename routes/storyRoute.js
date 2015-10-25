@@ -32,6 +32,7 @@ router.get('/:story_number?', function (request, response, next) {
 // add new story to database  //
 ////////////////////////////////
 
+
 router.post('/add', function (request, response, next) {
     var newStory = new story();
     //var newStory = request.body;
