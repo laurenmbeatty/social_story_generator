@@ -33,6 +33,28 @@ router.get('/:story_number?', function (request, response, next) {
 ////////////////////////////////
 
 
+//router.post('/add', function (request, response, next) {
+//    var newStory = request.body;
+//    console.log("newStory is: ", newStory);
+//    console.log(newStory.text[0]);
+//    for(var i = 0; i<request.body.length; i++) {
+//        var newScene = {
+//            text: request.body.text[i],
+//            imageUrl: request.body.imageUrl[i]
+//        };
+//        {$push: {scenes: newScene}};
+//    }
+//    console.log("The New Scene is: ", newScene);
+//    newStory.save(
+//        //{_id: id},
+//        {$push: {scenes: newScene}},
+//        {safe: true, upsert: true},
+//        function (err, toDo) {
+//            if (err) console.log(err);
+//            response.sendStatus(200);
+//        }
+//    )
+//});
 router.post('/add', function (request, response, next) {
     var newStory = new story();
     //var newStory = request.body;

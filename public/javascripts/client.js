@@ -8,7 +8,7 @@ $(document).ready(function () {
     //example carousel functionality//
     //////////////////////////////////
 
-    $('.arrow-next').click(function () {
+    $('#right').click(function () {
         var currentSlide = $('.active-slide');
         var nextSlide = currentSlide.next();
 
@@ -28,7 +28,7 @@ $(document).ready(function () {
     });
 
 
-    $('.arrow-prev').click(function () {
+    $('#left').click(function () {
         var currentSlide = $('.active-slide');
         var prevSlide = currentSlide.prev();
 
@@ -163,6 +163,8 @@ $(document).ready(function () {
             url: "/users/story"
         }).done(function (response) {
             console.log(response);
+            console.log(response[0]);
+            console.log(response[0].scenes[0].text);
             for (var i = 0; i < response.length; i++) {
                 var $carousel = "<div class='slide active-slide slide-feature1'>" +
                 "<div class='container'>" +

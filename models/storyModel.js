@@ -10,7 +10,7 @@ var storySchema = new mongoose.Schema({
     ]
 });
 
-
+//TODO
 //Would this work????????? Create two separate schemas, one that defines a scene, and then include
 //the scene in the storySchema
 //var sceneSchema = new mongoose.Schema({
