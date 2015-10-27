@@ -32,43 +32,20 @@ router.get('/:story_number?', function (request, response, next) {
 // add new story to database  //
 ////////////////////////////////
 
-
-//router.post('/add', function (request, response, next) {
-//    var newStory = request.body;
-//    console.log("newStory is: ", newStory);
-//    console.log(newStory.text[0]);
-//    for(var i = 0; i<request.body.length; i++) {
-//        var newScene = {
-//            text: request.body.text[i],
-//            imageUrl: request.body.imageUrl[i]
-//        };
-//        {$push: {scenes: newScene}};
-//    }
-//    console.log("The New Scene is: ", newScene);
-//    newStory.save(
-//        //{_id: id},
-//        {$push: {scenes: newScene}},
-//        {safe: true, upsert: true},
-//        function (err, toDo) {
-//            if (err) console.log(err);
-//            response.sendStatus(200);
-//        }
-//    )
-//});
 router.post('/add', function (request, response, next) {
     var newStory = new story();
-    //var newStory = request.body;
+    console.log(request.body);
     console.log(newStory);
-    //for(var i=0; i < story.scenes.length; i++) {
-    //    console.log("The number of scenes is: ", story.scenes.length);
-    //
-    //}
-    newStory.scenes.push(request.body);
-    //newStory.scenes.push({
-    //    text: newStory.scenes.text,
-    //    imageUrl: newStory.scenes.imageUrl
-    //
-    //});
+
+    for(var i=0; i < request.body.text.length; i++) {
+        //created a new empty scenes object
+        var pushObject = {};
+        //push each individual index into an object
+        pushObject.text = request.body.text[i];
+        pushObject.imageUrl = request.body.imageUrl[i];
+        //push each object into the empty object
+        newStory.scenes.push(pushObject);
+    }
     newStory.save(function (err) {
         if (err) {
             console.log("Post error", err);

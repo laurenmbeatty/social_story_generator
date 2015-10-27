@@ -48,8 +48,6 @@ $(document).ready(function () {
     });
 
 
-
-
     //////////////////////////////////////////////////
     //  login and register clicking functionality  //
     /////////////////////////////////////////////////
@@ -68,8 +66,9 @@ $(document).ready(function () {
     /////////////////////////////////////////////////////
     //  clicking on createStory button shows new form  //
     ////////////////////////////////////////////////////
-    
+
     $(".createStory").on("click", function () {
+        $(".slider").fadeOut(600);
         $(".titleForm").addClass("showMe");
         $(".saveMe").removeClass("saveMe");
         $("#storytitle").focus();
@@ -85,11 +84,11 @@ $(document).ready(function () {
         var $newForm = $("<div class = 'pageForm'>" +
             "<div class='formInput'>" +
             "<label for='storyline' class='line'>Text for Page " + counter + "</label>" +
-            "<textarea name = 'text' rows = '4' cols='50'>" + "</textarea>" +
+            "<textarea class = 'form-control hresize' name = 'text' rows = '4' cols='50'>" + "</textarea>" +
             "</div>" +
             "<div class='formInput'>" +
             "<label for='imageURL' class='title'>What is the URL of your photo? </label>" +
-            "<input type='url' name='imageUrl' id='imageUrl'/>" +
+            "<input type='url' name='imageUrl' class='form-control hresize' id='imageUrl'/>" +
             "</div>" +
             "<div class='button'>" +
             "<button class='addToo'>" + "Add Another Page" + "</button>" +
@@ -110,11 +109,11 @@ $(document).ready(function () {
         var $brandNewForm = $("<div class = 'pageForm'>" +
             "<div class='formInput'>" +
             "<label for='storyline' class='line'>Text for Page " + counter + "</label>" +
-            "<textarea name = 'text' rows = '4' cols='50' id='storyline'>" + "</textarea>" +
+            "<textarea class='form-control hresize' name = 'text' rows = '4' cols='50' id='storyline'>" + "</textarea>" +
             "</div>" +
             "<div class='formInput'>" +
             "<label for='imageURL' class='title'>What is the URL of your photo? </label>" +
-            "<input type='url' name='imageUrl' id='imageUrl'/>" +
+            "<input type='url' name='imageUrl' class ='form-control hresize' id='imageUrl'/>" +
             "</div>" +
             "<div class='button'>" +
             "<button class='addToo'>" + "Add Another Page" + "</button>" +
@@ -128,15 +127,8 @@ $(document).ready(function () {
     //  clicking on the save story button POSTS the story to the database ///
     /////////////////////////////////////////////////////////////////////////
 
-    $(".saveMe").on("click", function () {
+    $(".saveStory").on("click", function () {
         event.preventDefault();
-        var newStory = [];
-
-
-        //TODO figure this out
-        //http://stackoverflow.com/questions/10261021/sending-an-array-of-objects-as-ajax-post-data
-        //then put each field into the newStory array?  [{text: value of text field one, imageUrl: value of url field one},
-        //  {text: value of text field two, imageUrl: value of url field two}, etc.]
         var formData = $(".addAfter").serialize();
         console.log(formData);
         $.ajax({
@@ -147,14 +139,15 @@ $(document).ready(function () {
             console.log('Success! Posted to the database');
         });
 
-        //do a GET call? make story stuff disappear? make slider appear
-        //.pageForm remove and .titleForm remove
-        $(".slider").fadeIn(600);
-        $(".slider-nav").fadeIn(600);
-        getData();
-        $(".saveMe").fadeOut(600);
+        $(".saveStory").fadeOut(600);
 
+        $(".slider").fadeIn(600);
+        $("input").val("");
+        $("textarea").val("");
+        $(".pageForm").remove();
+        $(".titleForm").remove();
     });
+
 
     function getData() {
         console.log("getData fired...Huzzah!");
@@ -163,23 +156,36 @@ $(document).ready(function () {
             url: "/users/story"
         }).done(function (response) {
             console.log(response);
-            console.log(response[0]);
-            console.log(response[0].scenes[0].text);
-            for (var i = 0; i < response.length; i++) {
-                var $carousel = "<div class='slide active-slide slide-feature1'>" +
-                "<div class='container'>" +
+            console.log(response.length);
+            console.log(response[response.length - 1]);
+            var storyObject = response[response.length - 1];
+            console.log(storyObject);
+
+            for (var i = 0; i < storyObject.scenes.length; i++) {
+                var $carouselSlide = "<div class='slide slide-feature-user-" + i + "'>" +
+                    "<div class='container'>" +
                     "<div class='row'>" +
-                    "<div class='slide-copy col-xs-12>" +
-                    "<h1>" + response[i].scenes.text + "</h1>" +
-                "</div>" +
-                "</div>" +
-                "</div>" +
-                "</div>";
-                console.log("The carousel is: " + $carousel);
-                $(".appendHere").append($carousel);
+                    "<div class='col-xs-12'>" +
+                    "<img class = 'userImage' src='" + storyObject.scenes[i].imageUrl + "' height= '600px' width='830px'>" +
+                    "</div>" +
+                    "<div class='slide-copy col-xs-12'>" +
+                    "<h1 id='user-paragraph-slide'>" + storyObject.scenes[i].text + "</h1>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>";
+
+                $(".slide-feature-user-0").addClass("active-slide");
+                console.log("The carousel is: " + $carouselSlide);
+                $(".slider").append($carouselSlide);
             }
         });
-    }
+    };
+
+    $(".getStory").on("click", function () {
+        $(".slider-nav").fadeIn(600);
+        getData();
+    });
 
     //delete function
     //$.ajax({
