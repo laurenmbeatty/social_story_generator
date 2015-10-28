@@ -3,7 +3,7 @@ var router = express.Router();
 var path = require('path');
 var fs = require('fs');
 var multiparty = require('connect-multiparty');
-var story = require('../models/storyModel.js');
+var story = require('../models/storyModel');
 
 
 /////////////////////////////////
