@@ -9,7 +9,7 @@ var session = require('express-session');
 var localStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var User = require('./models/userModel');
-var HerokuStrategy = require('passport-local').Strategy;
+var HerokuStrategy = require('passport-heroku').Strategy;
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
