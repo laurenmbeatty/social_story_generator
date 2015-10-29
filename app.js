@@ -9,7 +9,6 @@ var session = require('express-session');
 var localStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var User = require('./models/userModel');
-var HerokuStrategy = require('passport-heroku').Strategy;
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -54,47 +53,25 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-//passport.use('local', new localStrategy({passReqToCallback: true, usernameField: 'username'},
-//    function (req, username, password, done) {
-//        User.findOne({username: username}, function (err, user) {
-//            if (err) throw err;
-//            if (!user) {
-//                return done(null, false, {message: 'Incorrect username or password'});
-//            }
-//            user.comparePassword(password, function (err, isMatch) {
-//                if (err) throw err;
-//                if (isMatch) {
-//                    return done(null, user);
-//                } else {
-//                    done(null, false, {message: 'Incorrect username or password'});
-//                }
-//            });
-//        });
-//    }
-//));
-
-passport.use(new HerokuStrategy({
-        client_id: Heroku_CLIENT_ID,
-        client_secret: Heroku_CLIENT_SECRET,
-        callbackURL: "http://127.0.0.1:3000/auth/heroku/callback"
-    },
-    function(accessToken, refreshToken, profile, done) {
-        User.findOrCreate({ githubId: profile.id }, function (err, user) {
-            return done(err, user);
+passport.use('local', new localStrategy({passReqToCallback: true, usernameField: 'username'},
+    function (req, username, password, done) {
+        User.findOne({username: username}, function (err, user) {
+            if (err) throw err;
+            if (!user) {
+                return done(null, false, {message: 'Incorrect username or password'});
+            }
+            user.comparePassword(password, function (err, isMatch) {
+                if (err) throw err;
+                if (isMatch) {
+                    return done(null, user);
+                } else {
+                    done(null, false, {message: 'Incorrect username or password'});
+                }
+            });
         });
     }
 ));
 
-//these two app.get are for heroku auth.
-app.get('/auth/heroku',
-    passport.authenticate('heroku'));
-
-app.get('/auth/heroku/callback',
-    passport.authenticate('heroku', { failureRedirect: '/login' }),
-    function(req, res) {
-        // Successful authentication, redirect home.
-        res.redirect('/');
-    });
 
 passport.serializeUser(function (user, done) {
     done(null, user.id);
