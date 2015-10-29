@@ -18,8 +18,10 @@ var register = require('./routes/register');
 var app = express();
 
 //mongo setup
-var mongoURI = "mongodb://localhost:27017/social";
-var MongoDB = mongoose.connect(mongoURI).connection;
+//var mongoURI = "mongodb://localhost:27017/social";
+//var MongoDB = mongoose.connect("mongodb://localhost:27017/social").connection;
+//mongolab connection
+var MongoDB = mongoose.connect("mongodb://laurentony:Fl@m1ng0@ds045454.mongolab.com:45454/stories").connection;
 
 MongoDB.on('error', function (err) {
     console.log('mongodb connection error', err);
