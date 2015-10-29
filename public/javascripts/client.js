@@ -99,8 +99,8 @@ $(document).ready(function () {
     var counter = 0;
 
     $(".login").on("click", function () {
-        $(".loginForm").addClass("showMe");
         $(".slider").fadeOut(600);
+        $(".loginForm").addClass("showMe");
         $(".slider-nav").fadeOut(600);
     });
     $("form.logMeIn").submit(function () {

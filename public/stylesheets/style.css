@@ -59,7 +59,8 @@ input[type=submit],
 .saveStory,
 .addToo,
 .add,
-.getStory {
+.getStory,
+.modalBtn {
     background-color: #95afba;
     float: right;
     border: 3px solid black;
@@ -88,7 +89,8 @@ input[type=submit],
 .createStory,
 .login,
 .register,
-.getStory {
+.getStory,
+.modalBtn {
     margin-top: 220px;
 }
 
@@ -292,11 +294,15 @@ input [type=text] {
     display: none;
 }
 
-/*.modal-content {*/
-/*background-color: #3f7cac;*/
+.modal-header {
+    background-color: #95afba;
+}
 
-/*}*/
+h4 {
+    text-transform: uppercase;
+    font-weight: bold;
+}
 
-/*.modalForm {*/
-/*margin: 0 auto 0 auto;*/
-/*}*/
+li {
+    list-style-type: none;
+}
