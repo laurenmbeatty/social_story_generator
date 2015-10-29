@@ -2,7 +2,7 @@ var express = require('express');
 var passport = require('passport');
 var path = require('path');
 var router = express.Router();
-var Upload = require('../models/uploadSchema');
+
 
 
 /* GET home page. */
@@ -15,14 +15,5 @@ router.post('/', passport.authenticate('local', {
     failureRedirect: '/'
 }));
 
-router.get('/', function (request, response, next) {
-    Upload.find({}, function (err, uploads) {
-        if (err) {
-            next(err);
-        } else {
-            response.render('index', {uploads: uploads});
-        }
-    });
-});
 
 module.exports = router;
