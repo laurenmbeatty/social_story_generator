@@ -4,6 +4,12 @@
 $(document).ready(function () {
     event.preventDefault();
 
+    ////////////////////////////
+    //populates story archive//
+    ///////////////////////////
+
+    loadData();
+
     //////////////////////////////////
     //  iPad swipe functionality   //
     /////////////////////////////////
@@ -192,6 +198,45 @@ $(document).ready(function () {
         $(".titleForm").remove();
     });
 
+    //////////////////////////////////////////
+    // dropdown to select previous stories  //
+    /////////////////////////////////////////
+    $('select[name="dropdown"]').change(function(){
+
+        if ($(this).val() == "2")
+            dropdownData();
+    });
+
+    function dropdownData() {
+        $.ajax({
+            type: "GET",
+            url: "/users/story"
+        }).done(function(response){
+           console.log(response);
+            var value;
+            var storyObject = response[value - 1];
+            for(var i = 0; i < response.length; i ++){
+                var $carouselSlide = "<div class='slide slide-feature-user-" + i + "'>" +
+                    "<div class='container'>" +
+                    "<div class='row'>" +
+                    "<div class='col-xs-12'>" +
+                    "<img class = 'userImage' src='" + storyObject.scenes[i].imageUrl + "' height= '600px' width='830px'>" +
+                    "</div>" +
+                    "<div class='slide-copy col-xs-12'>" +
+                    "<h1 id='user-paragraph-slide'>" + storyObject.scenes[i].text + "</h1>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>";
+
+                $(".slide-feature-user-0").addClass("active-slide");
+                console.log("The carousel is: " + $carouselSlide);
+                $(".slider").append($carouselSlide);
+
+            }
+        });
+    }
+
 
     function getData() {
         console.log("getData fired...Huzzah!");
@@ -219,10 +264,14 @@ $(document).ready(function () {
                     "</div>" +
                     "</div>";
 
+
+
                 $(".slide-feature-user-0").addClass("active-slide");
                 console.log("The carousel is: " + $carouselSlide);
                 $(".slider").append($carouselSlide);
             }
+            var $newStoryOption = "<option>" + storyObject.scenes[0].text + "</option>";
+            $("#stories").append($newStoryOption);
         });
     }
 
@@ -230,6 +279,21 @@ $(document).ready(function () {
         $(".slider-nav").fadeIn(600);
         getData();
     });
+
+    function loadData() {
+        $.ajax({
+            type: "GET",
+            url: "/users/story"
+        }).done(function (response) {
+            console.log(response);
+            for (var i = 0; i < response.length; i++){
+                var $storyOption =  "<option class = '" + [i] +"'>" + response[i].scenes[0].text + "</option>";
+                console.log($storyOption);
+                $("#stories").append($storyOption);
+
+            }
+    });
+}
 
 //delete function
 //$.ajax({
