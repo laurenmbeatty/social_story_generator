@@ -373,3 +373,11 @@ footer .fa {
     color: #18bc9c;
     background: #fff;
 }
+
+footer a {
+    padding: 0 0 0 0;
+}
+
+#stories {
+    margin-bottom: 10px;
+}
