@@ -102,12 +102,11 @@ $(document).ready(function () {
     //  login and register clicking functionality  //
     /////////////////////////////////////////////////
 
-    var counter = 0;
 
     $(".login").on("click", function () {
-        $(".slider").fadeOut(600);
+        $(".slider").hide();
         $(".loginForm").addClass("showMe");
-        $(".slider-nav").fadeOut(600);
+        $(".slider-nav").hide();
     });
     $("form.logMeIn").submit(function () {
         $(".login").hide();
@@ -118,7 +117,7 @@ $(document).ready(function () {
     ////////////////////////////////////////////////////
 
     $(".createStory").on("click", function () {
-        $(".slider").fadeOut(600);
+        $(".slider").hide();
         $(".titleForm").addClass("showMe");
         $(".saveMe").removeClass("saveMe");
         $("#storytitle").focus();
@@ -127,6 +126,8 @@ $(document).ready(function () {
     //////////////////////////////////////////////////////
     //  click on add another page adds the next form   //
     /////////////////////////////////////////////////////
+
+    var counter = 0;
 
     $(".add").on("click", function () {
         event.preventDefault();
@@ -150,7 +151,7 @@ $(document).ready(function () {
     });
 
     ////////////////////////////////////////////////
-    //  Adds the next form for subsequent pages  ///
+    //  Adds the next form for subsequent pages   //
     ////////////////////////////////////////////////
 
     $(document).on("click", ".addToo", function () {
@@ -198,45 +199,9 @@ $(document).ready(function () {
         $(".titleForm").remove();
     });
 
-    //////////////////////////////////////////
-    // dropdown to select previous stories  //
-    /////////////////////////////////////////
-    $('select[name="dropdown"]').change(function(){
-
-        if ($(this).val() == "2")
-            dropdownData();
-    });
-
-    function dropdownData() {
-        $.ajax({
-            type: "GET",
-            url: "/users/story"
-        }).done(function(response){
-           console.log(response);
-            var value;
-            var storyObject = response[value - 1];
-            for(var i = 0; i < response.length; i ++){
-                var $carouselSlide = "<div class='slide slide-feature-user-" + i + "'>" +
-                    "<div class='container'>" +
-                    "<div class='row'>" +
-                    "<div class='col-xs-12'>" +
-                    "<img class = 'userImage' src='" + storyObject.scenes[i].imageUrl + "' height= '600px' width='830px'>" +
-                    "</div>" +
-                    "<div class='slide-copy col-xs-12'>" +
-                    "<h1 id='user-paragraph-slide'>" + storyObject.scenes[i].text + "</h1>" +
-                    "</div>" +
-                    "</div>" +
-                    "</div>" +
-                    "</div>";
-
-                $(".slide-feature-user-0").addClass("active-slide");
-                console.log("The carousel is: " + $carouselSlide);
-                $(".slider").append($carouselSlide);
-
-            }
-        });
-    }
-
+    /////////////////////////////////////////////////////////////////////////
+    // functionality to get story from the database from view story button //
+    ////////////////////////////////////////////////////////////////////////
 
     function getData() {
         console.log("getData fired...Huzzah!");
@@ -265,7 +230,6 @@ $(document).ready(function () {
                     "</div>";
 
 
-
                 $(".slide-feature-user-0").addClass("active-slide");
                 console.log("The carousel is: " + $carouselSlide);
                 $(".slider").append($carouselSlide);
@@ -276,9 +240,13 @@ $(document).ready(function () {
     }
 
     $(".getStory").on("click", function () {
-        $(".slider-nav").fadeIn(600);
+        $(".slider-nav").show();
         getData();
     });
+
+    ///////////////////////////////////////////////////////////////
+    // loadData function that populates story archive in footer  //
+    ///////////////////////////////////////////////////////////////
 
     function loadData() {
         $.ajax({
@@ -286,14 +254,61 @@ $(document).ready(function () {
             url: "/users/story"
         }).done(function (response) {
             console.log(response);
-            for (var i = 0; i < response.length; i++){
-                var $storyOption =  "<option class = '" + [i] +"'>" + response[i].scenes[0].text + "</option>";
+            for (var i = 0; i < response.length; i++) {
+                var $storyOption = "<option value = '" + [i] + "'>" + response[i].scenes[0].text + "</option>";
                 console.log($storyOption);
                 $("#stories").append($storyOption);
 
             }
+        });
+    }
+
+
+    //////////////////////////////////////////
+    // dropdown that shows previous stories //
+    /////////////////////////////////////////
+
+    function getArchivedStory() {
+        console.log($classSelected);
+        $.ajax({
+            type: "GET",
+            url: "/users/story"
+        }).done(function (response) {
+            var storyObject = response[$classSelected];
+            for (var i = 0; i < storyObject.scenes.length; i++) {
+                var $carouselSlide = "<div class='slide slide-feature-user-" + i + "'>" +
+                    "<div class='container'>" +
+                    "<div class='row'>" +
+                    "<div class='col-xs-12'>" +
+                    "<img class = 'userImage' src='" + storyObject.scenes[i].imageUrl + "' height= '600px' width='830px'>" +
+                    "</div>" +
+                    "<div class='slide-copy col-xs-12'>" +
+                    "<h1 id='user-paragraph-slide'>" + storyObject.scenes[i].text + "</h1>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>" +
+                    "</div>";
+
+
+                $(".slide-feature-user-0").addClass("active-slide");
+                console.log("The carousel is: " + $carouselSlide);
+                $(".slider").append($carouselSlide);
+            }
+
+        });
+
+    }
+
+    var $classSelected;
+
+    $(".archive").on("submit", function () {
+        event.preventDefault();
+        $(".slider").children().remove();
+        $classSelected = $(this).find(":selected").val();
+        console.log($classSelected);
+        $(".slider-nav").show();
+        getArchivedStory();
     });
-}
 
 //delete function
 //$.ajax({
