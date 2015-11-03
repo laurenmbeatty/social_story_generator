@@ -191,9 +191,7 @@ $(document).ready(function () {
         });
 
         $(".saveStory").fadeOut(600);
-
         $(".slider").fadeIn(600);
-        $("input").val("");
         $("textarea").val("");
         $(".pageForm").remove();
         $(".titleForm").remove();
